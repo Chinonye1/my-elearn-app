@@ -1,7 +1,7 @@
-export function Button() {
+export function Button({buttonName}) {
     return (
         <>
-          <button></button>
+          <button>{buttonName}</button>
          
         
         </>

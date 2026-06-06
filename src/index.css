@@ -44,6 +44,7 @@
   display: flex;
   gap: 12px;
   
+  
 
 }
 
@@ -51,4 +52,7 @@
   display:grid;
   grid-template-columns: repeat(2,1fr);
   
+}
+button{
+  background-color: #7C3AED;
 }

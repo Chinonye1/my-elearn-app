@@ -1,8 +1,9 @@
 import React from "react";
 import Elearnlogo from "./images/Elearnlogo.png";
+import {Button} from "./Button"
 
 
-export function NavBar({Button}) {
+export function NavBar() {
   return (
     <>
       <nav>
@@ -31,6 +32,8 @@ export function NavBar({Button}) {
         </div>
         </div>
         <div className="buttons">
+            <Button buttonName={"Browse courses"}/>
+            <Button buttonName={"Become a Tutor"}/>
            
       
          </div>
