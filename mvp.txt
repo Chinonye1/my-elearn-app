@@ -1,0 +1,41 @@
+SRC
+Pages/
+HomePage
+CoursesPage
+CourseDetailsPage
+TutorDashboardPage
+AddCoursePage
+EditCoursePage
+ReviewsPage
+CategoriesPage
+WishlistPage
+ 
+
+
+Components/
+Navbar
+Footer
+Sidebar
+CourseCard
+CourseList
+CourseForm
+CategoryCard
+CategoryForm
+ReviewCard
+ReviewList
+ReviewForm
+SearchBar
+FilterDropdown
+StatsCard
+Button
+
+
+
+FRONTEND 
+-List all the CoursesPage
+-Sort base on Categories, highest star
+-Search for course or course of tutor
+-See more details of individual courses
+-Add to wishlist or enrol
+-See Tutor Dashboard(My courses)
+-Add courses or deleete courses and edit
