@@ -11,8 +11,9 @@ export function CourseList() {
 
   const getData = async () => {
     try {
+      
       const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URL}/courses`,
+        `${import.meta.env.VITE_SERVER_URL}/courses`
       );
 
       console.log(response.data);
