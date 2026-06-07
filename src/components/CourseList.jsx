@@ -2,26 +2,52 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export function CourseList() {
-  const [course, setCourses] = useState();
-  const [loading, isLoading] = useState(true);
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getData();
   }, []);
 
-  const getData = async () => {
+  async function getData() {
     try {
-      
       const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URL}/courses`
+        `${import.meta.env.VITE_SERVER_URL}/courses`,
       );
 
-      console.log(response.data);
       setCourses(response.data);
+
+      setLoading(false);
     } catch (err) {
       console.error(err);
     }
-  };
+  }
 
-  return <></>;
+  console.log("list", courses);
+
+  if (loading) return <h3>Loading courses...</h3>;
+
+  return (
+    <>
+      <h2>Featured courses</h2>
+      <div className="courseCard">
+        {courses.map((course) => {
+          return (
+        
+              <div key={course.id}  >
+               
+                
+                  <img src={course.image} />
+                  <p> {course.title} </p>
+                  <h4>{course.tutorName}</h4>
+                  <h5>{course.price}</h5>
+                  <p>{course.duration}</p>
+                
+              </div>
+           
+          );
+        })}
+      </div>
+    </>
+  );
 }
