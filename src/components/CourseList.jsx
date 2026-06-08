@@ -23,13 +23,13 @@ export function CourseList() {
     }
   }
 
-  console.log("list", courses);
+  
 
   if (loading) return <h3>Loading courses...</h3>;
 
   return (
     <>
-      <h2>Featured courses</h2>
+      
       <div className="courseCard">
         {courses.map((course) => {
           return (

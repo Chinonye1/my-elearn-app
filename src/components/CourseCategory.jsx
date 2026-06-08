@@ -4,7 +4,7 @@ import axios from "axios";
 
 export function CourseCategory() {
 
-    const [category, setCategory]= useState()
+    const [category, setCategory]= useState([])
     const [loading, setLoading] = useState(true)
 
 
@@ -15,26 +15,35 @@ export function CourseCategory() {
     async function getData() {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URL}/category`,
+        `${import.meta.env.VITE_SERVER_URL}/categories`,
       );
 
       setCategory(response.data);
 
       setLoading(false);
+
+      
     } catch (err) {
       console.error(err);
+      setLoading(false);
     }
 
-      if (loading) return <h3>Loading categories...</h3>;
+    }
 
+    if (loading) return <h3>Loading categories...</h3>;
 
-
-
-    return(
+    return (
         <>
+        {category.map((element)=>{
+            return(
+                <div key={element.id}>
+                  <p>{element.name}</p>
+                  <p>{element.id}</p>
+                </div>
+            )
 
-        
+        })}
         </>
     )
     
-}}
+}

@@ -1,6 +1,7 @@
 import React from "react";
-import Elearnlogo from "./images/Elearnlogo.png";
-import {Button} from "./Button"
+import Elearnlogo from "../assets/logo.png";
+import { Link } from "react-router-dom";
+
 
 
 export function NavBar() {
@@ -8,35 +9,17 @@ export function NavBar() {
     <>
       <nav>
         <div className="NavbarSection">
-          <img src={Elearnlogo} alt="logo" />
-          <p>ELearnCafe</p>
-          <a href="/"></a>
-          <a href="/home">Home</a>
-          <a href="/courses">Courses</a>
-          <a href="/category">Category</a>
-          <a href="/about">About</a>
+
+          <p>
+          <img  src={Elearnlogo}  alt="logo" />
+          ELearnCafe</p>
+          
+          <Link to="/homePage">HomePage</Link>
+          <Link to="/courses">Courses</Link>
+          <Link to="/myLearning">My Learning</Link>
+          <Link to="/instructor">Instructor</Link>
         </div>
-        <div className="intro">
-        <div>
-        <h1>Learn Today,</h1>
-        <h1>Lead Tomorrow</h1>
-        <p>
-          Discover expert-led courses in technology, business, design, and
-          personal development. Learn at your own pace, build practical skills,
-          and take the next step in your career.
-        </p>
-        </div>
-        <div>
-             <img src={Elearnlogo} alt="logo" />
-            
-        </div>
-        </div>
-        <div className="buttons">
-            <Button buttonName={"Browse courses"}/>
-            <Button buttonName={"Become a Tutor"}/>
-           
-      
-         </div>
+     
       </nav>
     </>
   );
