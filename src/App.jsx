@@ -30,12 +30,16 @@ function App() {
               <Performance/>
               <h2>Featured courses</h2>
               <CourseList />
+                <h2>Explore Categories</h2>
+                <p>Find courses in your area of interest</p>
+      <CourseCategory/>
             </>
           }
         />
         <Route path="/courses" element={<CourseList />} />
         <Route path="/category" element={<CourseCategory />} />
       </Routes>
+    
     </BrowserRouter>
   );
 }
