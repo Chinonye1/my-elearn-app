@@ -1,10 +1,25 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import { Card } from "@mui/material";
+import Box from "@mui/material/Box";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 
 export function CourseCategory() {
+  const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState(null);
+
+  function handleOnclick(categoryName) {
+    setActiveCategory(categoryName);
+    navigate(`/courses/${categoryName}`);
+  }
+  console.log("active", activeCategory);
 
   useEffect(() => {
     getData();
@@ -41,7 +56,7 @@ export function CourseCategory() {
   const categoryNames = Object.keys(groupedCourses).sort();
 
   return (
-    <div className="categoryGroups">
+    <Grid container spacing={2}>
       {categoryNames.map((categoryName) => {
         const isActive = categoryName === activeCategory;
 
@@ -50,14 +65,27 @@ export function CourseCategory() {
             key={categoryName}
             className={`categoryCard ${isActive ? "isActive" : ""}`}
           >
-            <button
-              type="button"
-              className="categoryCardHeader"
-              onClick={() => setActiveCategory(isActive ? null : categoryName)}
-            >
-              <h3>{categoryName}</h3>
-              <p>{groupedCourses[categoryName].length} courses</p>
-            </button>
+            <Grid sx={{ xs: 4, md: 2 }}>
+              <CardContent>
+                <Typography
+                  gutterBottom
+                  sx={{ color: "text.secondary", fontSize: 14 }}
+                >
+                  {categoryName}
+                </Typography>
+                <Typography variant="h5" component="div">
+                  {groupedCourses[categoryName].length} courses
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button
+                  size="small"
+                  onClick={() => handleOnclick(categoryName)}
+                >
+                  Learn More
+                </Button>
+              </CardActions>
+            </Grid>
 
             {isActive && (
               <div className="categoryCourses">
@@ -77,6 +105,6 @@ export function CourseCategory() {
           </section>
         );
       })}
-    </div>
+    </Grid>
   );
 }

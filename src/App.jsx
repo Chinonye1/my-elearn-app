@@ -8,6 +8,7 @@ import { Performance } from "./pages/Performance";
 
 function App() {
   return (
+    <div>
     <BrowserRouter>
       <NavBar />
       <Routes>
@@ -17,8 +18,6 @@ function App() {
             <>
               <HomePage />
               <CourseList />
-              
-              
             </>
           }
         />
@@ -27,20 +26,22 @@ function App() {
           element={
             <>
               <HomePage />
-              <Performance/>
+              <Performance />
               <h2>Featured courses</h2>
               <CourseList />
-                <h2>Explore Categories</h2>
-                <p>Find courses in your area of interest</p>
-      <CourseCategory/>
+              <h2>Explore Categories</h2>
+              <p>Find courses in your area of interest</p>
+              <CourseCategory />
             </>
           }
         />
         <Route path="/courses" element={<CourseList />} />
+        
         <Route path="/category" element={<CourseCategory />} />
+        <Route path="/courses/:details" element="tests" />
       </Routes>
-    
     </BrowserRouter>
+    </div>
   );
 }
 

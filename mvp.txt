@@ -39,3 +39,10 @@ FRONTEND
 -Add to wishlist or enrol
 -See Tutor Dashboard(My courses)
 -Add courses or deleete courses and edit
+
+
+
+
+
+
+#####DARK/LIGHT THEME TOGGLE#####

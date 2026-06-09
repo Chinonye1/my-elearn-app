@@ -137,3 +137,14 @@ button {
   object-fit: cover;
   border-radius: 10px;
 }
+
+.dark{
+  background-color: black;
+  color: white;
+  min-height: 100vh;
+}
+
+.light{
+  background-color: purple;
+
+}
