@@ -1,15 +1,21 @@
-import {Button} from "../components/Button"
+
+import { Button } from "@mui/material";
 import Elearnlogo from "../assets/logo.png";
-import { CourseList } from "../components/CourseList";
+import { useNavigate } from "react-router-dom";
 
 
 
 
 export function HomePage() {
+    const navigate = useNavigate();
 
 
     function handleClick(){
-        return <CourseList/>
+        navigate("/courses");
+    }
+
+    function handleClick2(){
+        navigate("/instructor");
     }
 
     
@@ -32,10 +38,11 @@ export function HomePage() {
             
         </div>
 
-        <div className="buttons">
+        <div className="buttonsList">
+
             
-            <Button buttonName={"Get Started"}/>
-            <Button buttonName={"Teach on Elearn"}/>
+            <Button onClick={handleClick}>Get started</Button>
+            <Button onClick={handleClick2}>Teach on Elearn</Button>
            
       
          </div>

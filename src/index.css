@@ -42,7 +42,7 @@
   height: 40px;
 }
 
-.buttons {
+.buttonsList {
   width: 250px;
   height: 20px;
   display: flex;
@@ -53,17 +53,17 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
-button {
+/* button {
   background-color: #7c3aed;
-}
+} */
 
-.courseCard {
+.courseListCard {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 50px;
 }
 
-.courseCard img {
+.courseListCard img {
   width: 100%;
   aspect-ratio: 16 /9;
   object-fit: cover;
@@ -148,3 +148,25 @@ button {
   background-color: purple;
 
 }
+
+.courseButton{
+  background-color: white;
+
+}
+
+
+.courseCard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 50px;
+  margin: 20px;
+}
+
+.courseCard img {
+  width: 100%;
+  aspect-ratio: 16 /9;
+  object-fit: cover;
+  display: block;
+}
+
+

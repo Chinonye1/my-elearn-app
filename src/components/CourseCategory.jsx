@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import { Card } from "@mui/material";
-import Box from "@mui/material/Box";
+import { useNavigate } from "react-router-dom";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
@@ -19,7 +17,6 @@ export function CourseCategory() {
     setActiveCategory(categoryName);
     navigate(`/courses/${categoryName}`);
   }
-  console.log("active", activeCategory);
 
   useEffect(() => {
     getData();
