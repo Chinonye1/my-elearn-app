@@ -8,7 +8,8 @@ import { Performance } from "./pages/Performance";
 import { Courses } from "./pages/Courses";
 import { Learning } from "./pages/Learning";
 import { Instructor } from "./pages/Instructor";
-import { CreateCourse } from "./pages/CreateCourse";
+import { CreateCourse } from "./components/CreateCourse";
+import { EditCourse } from "./components/EditCourse";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
         <Route path="/learning" element={<Learning />} />
         <Route path="/instructor" element={<Instructor />} />
         <Route path="/create" element={<CreateCourse />} />
+        <Route path="/courses/edit/:courseId" element={ <EditCourse /> } />
         <Route path="/courses/:details" element="tests" />
       </Routes>
     </BrowserRouter>

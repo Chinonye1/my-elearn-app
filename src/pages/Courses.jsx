@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import Button from "@mui/material/Button";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { purple } from "@mui/material/colors";
 import { Grid } from "@mui/material";
 
 export function Courses() {
+  const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,6 +26,17 @@ export function Courses() {
       setCourses(response.data);
 
       setLoading(false);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async function deleteCourse(courseId) {
+    try {
+      await axios.delete(`${import.meta.env.VITE_SERVER_URL}/courses/${courseId}`);
+      setCourses((currentCourses) =>
+        currentCourses.filter((course) => course.id !== courseId)
+      );
     } catch (err) {
       console.error(err);
     }
@@ -63,6 +75,19 @@ export function Courses() {
               <h4>{course.tutorName}</h4>
               <h5>{course.price}</h5>
               <p>{course.duration}</p>
+              <Button
+                variant="outlined"
+                onClick={() => navigate(`/courses/edit/${course.id}`)}
+              >
+                Edit
+              </Button>
+              <Button
+                variant="outlined"
+                color="error"
+                onClick={() => deleteCourse(course.id)}
+              >
+                Delete
+              </Button>
             </div>
           );
         })}

@@ -16,16 +16,17 @@ export function NavBar() {
     <>
       <nav>
         <div className="NavbarSection">
-          <p>
+        
             <img src={Elearnlogo} alt="logo" />
-            ELearnCafe
-          </p>
+          
+          
 
           <Link to="/homePage">HomePage</Link>
           <Link to="/courses">Courses</Link>
           <Link to="/learning">My Learning</Link>
           <Link to="/instructor">Instructor</Link>
           <Button variant="outlined" onClick={handleClick}>Create Course</Button>
+         
       
       
         </div>
