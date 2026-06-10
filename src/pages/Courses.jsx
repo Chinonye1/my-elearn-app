@@ -8,7 +8,11 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Grid } from "@mui/material";
 
-export function Courses() {
+export function Courses({
+  showManagementActions = false,
+  title = "All Courses",
+  description = "Explore our comprehensive library of courses",
+}) {
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -28,6 +32,7 @@ export function Courses() {
       setLoading(false);
     } catch (err) {
       console.error(err);
+      setLoading(false);
     }
   }
 
@@ -46,8 +51,8 @@ export function Courses() {
 
   return (
     <>
-      <h1>All Courses</h1>
-      <p>Explore our comprehensive library of courses</p>
+      {title && <h1>{title}</h1>}
+      {description && <p>{description}</p>}
 
       <Box sx={{ width: 500, maxWidth: "80%" }}>
         <TextField fullWidth label="Search courses" id="fullWidth" />
@@ -58,7 +63,14 @@ export function Courses() {
       <div>
         {courses.map((course) => (
           <Grid key={course.id}>
-            <Button variant="contained">{course.category}</Button>
+            <Button
+              variant="contained"
+              onClick={() =>
+                navigate(`/courses/category/${encodeURIComponent(course.category)}`)
+              }
+            >
+              {course.category}
+            </Button>
           </Grid>
         ))}
       </div>
@@ -77,17 +89,27 @@ export function Courses() {
               <p>{course.duration}</p>
               <Button
                 variant="outlined"
-                onClick={() => navigate(`/courses/edit/${course.id}`)}
+                onClick={() => navigate(`/courses/details/${course.id}`)}
               >
-                Edit
+                View Details
               </Button>
-              <Button
-                variant="outlined"
-                color="error"
-                onClick={() => deleteCourse(course.id)}
-              >
-                Delete
-              </Button>
+              {showManagementActions && (
+                <>
+                  <Button
+                    variant="outlined"
+                    onClick={() => navigate(`/courses/edit/${course.id}`)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="error"
+                    onClick={() => deleteCourse(course.id)}
+                  >
+                    Delete
+                  </Button>
+                </>
+              )}
             </div>
           );
         })}

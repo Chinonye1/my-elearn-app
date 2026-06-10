@@ -60,7 +60,7 @@ export function EditCourse() {
         image,
       });
 
-      navigate("/courses");
+      navigate("/instructor");
     } catch (err) {
       console.error(err);
     }
@@ -69,7 +69,7 @@ export function EditCourse() {
   async function deleteCourse() {
     try {
       await axios.delete(`${import.meta.env.VITE_SERVER_URL}/courses/${courseId}`);
-      navigate("/courses");
+      navigate("/instructor");
     } catch (error) {
       console.error(error);
     }

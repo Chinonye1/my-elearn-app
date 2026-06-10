@@ -169,4 +169,24 @@
   display: block;
 }
 
+.courseDetails {
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(280px, 1fr);
+  gap: 32px;
+  align-items: start;
+  margin: 20px;
+}
+
+.courseDetails img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .courseDetails {
+    grid-template-columns: 1fr;
+  }
+}
 

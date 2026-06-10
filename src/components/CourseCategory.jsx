@@ -15,7 +15,7 @@ export function CourseCategory() {
 
   function handleOnclick(categoryName) {
     setActiveCategory(categoryName);
-    navigate(`/courses/${categoryName}`);
+    navigate(`/courses/category/${encodeURIComponent(categoryName)}`);
   }
 
   useEffect(() => {
@@ -94,6 +94,12 @@ export function CourseCategory() {
                       <h4>{course.tutorName}</h4>
                       <p>{course.duration}</p>
                       <p>{course.price}</p>
+                      <Button
+                        size="small"
+                        onClick={() => navigate(`/courses/details/${course.id}`)}
+                      >
+                        View Details
+                      </Button>
                     </article>
                   );
                 })}

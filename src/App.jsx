@@ -10,6 +10,8 @@ import { Learning } from "./pages/Learning";
 import { Instructor } from "./pages/Instructor";
 import { CreateCourse } from "./components/CreateCourse";
 import { EditCourse } from "./components/EditCourse";
+import { CourseDetails } from "./components/CourseDetails";
+import { CourseCategoryDetails } from "./components/CourseCategoryDetails";
 
 function App() {
   return (
@@ -39,7 +41,11 @@ function App() {
         <Route path="/instructor" element={<Instructor />} />
         <Route path="/create" element={<CreateCourse />} />
         <Route path="/courses/edit/:courseId" element={ <EditCourse /> } />
-        <Route path="/courses/:details" element="tests" />
+        <Route path="/courses/details/:courseId" element={<CourseDetails/> }/>
+        <Route
+          path="/courses/category/:categoryName"
+          element={<CourseCategoryDetails />}
+        />
       </Routes>
     </BrowserRouter>
     </div>
