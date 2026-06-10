@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
 import { Grid } from "@mui/material";
 
 export function Courses({
@@ -16,37 +17,41 @@ export function Courses({
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [difficultyFilter, setDifficultyFilter] = useState("");
 
   useEffect(() => {
+    async function getData() {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_SERVER_URL}/courses`,
+        );
+
+        setCourses(response.data);
+
+        setLoading(false);
+      } catch (err) {
+        console.error(err);
+        setLoading(false);
+      }
+    }
+
     getData();
   }, []);
 
-  async function getData() {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URL}/courses`,
-      );
-
-      setCourses(response.data);
-
-      setLoading(false);
-    } catch (err) {
-      console.error(err);
-      setLoading(false);
-    }
-  }
-
   async function deleteCourse(courseId, courseTitle) {
     const shouldDelete = window.confirm(
-      `Are you sure you want to delete "${courseTitle}"?`
+      `Are you sure you want to delete "${courseTitle}"?`,
     );
 
     if (!shouldDelete) return;
 
     try {
-      await axios.delete(`${import.meta.env.VITE_SERVER_URL}/courses/${courseId}`);
+      await axios.delete(
+        `${import.meta.env.VITE_SERVER_URL}/courses/${courseId}`,
+      );
       setCourses((currentCourses) =>
-        currentCourses.filter((course) => course.id !== courseId)
+        currentCourses.filter((course) => course.id !== courseId),
       );
     } catch (err) {
       console.error(err);
@@ -68,15 +73,48 @@ export function Courses({
 
   const categoryNames = Object.keys(groupedCourses).sort();
 
+  const filteredCourses = courses.filter((course) => {
+    const searchText = searchTerm.toLowerCase();
+    const courseDifficulty = course.difficultyLevel || course.level || "";
+
+    const matchesSearch =
+      course.title.toLowerCase().includes(searchText) ||
+      course.category.toLowerCase().includes(searchText) ||
+      course.tutorName.toLowerCase().includes(searchText);
+
+    const matchesDifficulty =
+      difficultyFilter === "" || courseDifficulty === difficultyFilter;
+
+    return matchesSearch && matchesDifficulty;
+  });
+
   return (
     <>
       {title && <h1>{title}</h1>}
       {description && <p>{description}</p>}
 
       <Box sx={{ width: 500, maxWidth: "80%" }}>
-        <TextField fullWidth label="Search courses" id="fullWidth" />
+        <TextField
+          fullWidth
+          label="Search courses"
+          id="fullWidth"
+          value={searchTerm}
+          onChange={(event) => setSearchTerm(event.target.value)}
+        />
+        <TextField
+          select
+          fullWidth
+          label="Difficulty"
+          value={difficultyFilter}
+          onChange={(event) => setDifficultyFilter(event.target.value)}
+          sx={{ marginTop: 2 }}
+        >
+          <MenuItem value="">All Levels</MenuItem>
+          <MenuItem value="Beginner">Beginner</MenuItem>
+          <MenuItem value="Intermediate">Intermediate</MenuItem>
+          <MenuItem value="Advanced">Advanced</MenuItem>
+        </TextField>
         <Button variant="outlined">All Courses ({courses.length})</Button>
-
       </Box>
 
       <div className="categoryButtonList">
@@ -85,7 +123,9 @@ export function Courses({
             <Button
               variant="contained"
               onClick={() =>
-                navigate(`/courses/category/${encodeURIComponent(categoryName)}`)
+                navigate(
+                  `/courses/category/${encodeURIComponent(categoryName)}`,
+                )
               }
             >
               {categoryName} ({groupedCourses[categoryName].length})
@@ -94,44 +134,48 @@ export function Courses({
         ))}
       </div>
 
-      <p>Showing courses </p>
+      <p>Showing {filteredCourses.length} courses</p>
 
       <div className="courseCard">
-        {courses.map((course) => {
-          return (
-            <div key={course.id}>
-              <img src={course.image} />
-              <h5>{course.category}</h5>
-              <p> {course.title} </p>
-              <h4>{course.tutorName}</h4>
-              <h5>{course.price}</h5>
-              <p>{course.duration}</p>
-              <Button
-                variant="outlined"
-                onClick={() => navigate(`/courses/details/${course.id}`)}
-              >
-                View Details
-              </Button>
-              {showManagementActions && (
-                <>
-                  <Button
-                    variant="outlined"
-                    onClick={() => navigate(`/courses/edit/${course.id}`)}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    color="error"
-                    onClick={() => deleteCourse(course.id, course.title)}
-                  >
-                    Delete
-                  </Button>
-                </>
-              )}
-            </div>
-          );
-        })}
+        {filteredCourses.length === 0 ? (
+          <h3>No courses found.</h3>
+        ) : (
+          filteredCourses.map((course) => {
+            return (
+              <div key={course.id}>
+                <img src={course.image} />
+                <h5>{course.category}</h5>
+                <p> {course.title} </p>
+                <h4>{course.tutorName}</h4>
+                <h5>{course.price}</h5>
+                <p>{course.duration}</p>
+                <Button
+                  variant="outlined"
+                  onClick={() => navigate(`/courses/details/${course.id}`)}
+                >
+                  View Details
+                </Button>
+                {showManagementActions && (
+                  <>
+                    <Button
+                      variant="outlined"
+                      onClick={() => navigate(`/courses/edit/${course.id}`)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      color="error"
+                      onClick={() => deleteCourse(course.id, course.title)}
+                    >
+                      Delete
+                    </Button>
+                  </>
+                )}
+              </div>
+            );
+          })
+        )}
       </div>
     </>
   );
