@@ -36,7 +36,13 @@ export function Courses({
     }
   }
 
-  async function deleteCourse(courseId) {
+  async function deleteCourse(courseId, courseTitle) {
+    const shouldDelete = window.confirm(
+      `Are you sure you want to delete "${courseTitle}"?`
+    );
+
+    if (!shouldDelete) return;
+
     try {
       await axios.delete(`${import.meta.env.VITE_SERVER_URL}/courses/${courseId}`);
       setCourses((currentCourses) =>
@@ -49,6 +55,19 @@ export function Courses({
 
   if (loading) return <h3>Loading courses...</h3>;
 
+  const groupedCourses = courses.reduce((groups, course) => {
+    const categoryName = course.category?.trim() || "Uncategorized";
+
+    if (!groups[categoryName]) {
+      groups[categoryName] = [];
+    }
+
+    groups[categoryName].push(course);
+    return groups;
+  }, {});
+
+  const categoryNames = Object.keys(groupedCourses).sort();
+
   return (
     <>
       {title && <h1>{title}</h1>}
@@ -56,20 +75,20 @@ export function Courses({
 
       <Box sx={{ width: 500, maxWidth: "80%" }}>
         <TextField fullWidth label="Search courses" id="fullWidth" />
-                   <Button variant="outlined" >All Courses</Button>
+        <Button variant="outlined">All Courses ({courses.length})</Button>
 
       </Box>
 
-      <div>
-        {courses.map((course) => (
-          <Grid key={course.id}>
+      <div className="categoryButtonList">
+        {categoryNames.map((categoryName) => (
+          <Grid key={categoryName}>
             <Button
               variant="contained"
               onClick={() =>
-                navigate(`/courses/category/${encodeURIComponent(course.category)}`)
+                navigate(`/courses/category/${encodeURIComponent(categoryName)}`)
               }
             >
-              {course.category}
+              {categoryName} ({groupedCourses[categoryName].length})
             </Button>
           </Grid>
         ))}
@@ -104,7 +123,7 @@ export function Courses({
                   <Button
                     variant="outlined"
                     color="error"
-                    onClick={() => deleteCourse(course.id)}
+                    onClick={() => deleteCourse(course.id, course.title)}
                   >
                     Delete
                   </Button>

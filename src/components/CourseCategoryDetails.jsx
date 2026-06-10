@@ -8,6 +8,8 @@ export function CourseCategoryDetails() {
   const { categoryName } = useParams();
   const selectedCategory = decodeURIComponent(categoryName);
 
+  console.log("Selected category", selectedCategory)
+
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
 

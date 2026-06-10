@@ -154,6 +154,13 @@
 
 }
 
+.categoryButtonList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 20px 0;
+}
+
 
 .courseCard {
   display: grid;
@@ -189,4 +196,3 @@
     grid-template-columns: 1fr;
   }
 }
-

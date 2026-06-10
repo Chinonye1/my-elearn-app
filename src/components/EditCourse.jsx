@@ -67,6 +67,12 @@ export function EditCourse() {
   }
 
   async function deleteCourse() {
+    const shouldDelete = window.confirm(
+      `Are you sure you want to delete "${title}"?`
+    );
+
+    if (!shouldDelete) return;
+
     try {
       await axios.delete(`${import.meta.env.VITE_SERVER_URL}/courses/${courseId}`);
       navigate("/instructor");
