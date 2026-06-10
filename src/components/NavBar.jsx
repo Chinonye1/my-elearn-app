@@ -21,7 +21,7 @@ export function NavBar() {
           
           
 
-          <Link to="/homePage">HomePage</Link>
+          <Link to="/">HomePage</Link>
           <Link to="/courses">Courses</Link>
           <Link to="/learning">My Learning</Link>
           <Link to="/instructor">Instructor</Link>
