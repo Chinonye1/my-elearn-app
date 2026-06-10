@@ -7,15 +7,15 @@ export function Performance() {
             </div>
             <div>
                  <h1>50,000+</h1>
-                <p>Courses</p>
+                <p>Students</p>
             </div>
             <div>
                  <h1>25,000+</h1>
-                <p>Courses</p>
+                <p>Certificates</p>
             </div>
             <div>
                  <h1>94%</h1>
-                <p>Courses</p>
+                <p>Success Rate</p>
             </div>
             
 
