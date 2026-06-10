@@ -191,6 +191,61 @@
   display: block;
 }
 
+.courseReviews {
+  margin: 32px 20px;
+}
+
+.reviewForm {
+  max-width: 640px;
+  margin-top: 24px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.reviewForm h3 {
+  margin-top: 0;
+}
+
+.reviewList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.reviewCard {
+  display: grid;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.reviewHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reviewHeader img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.reviewHeader h4,
+.reviewHeader p,
+.reviewCard p {
+  margin: 0;
+}
+
+.reviewRating {
+  color: #b7791f;
+}
+
 .myLearn{
   display: grid;
   grid-template-columns: repeat(2, 2fr);
