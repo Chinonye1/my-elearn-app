@@ -17,15 +17,7 @@ function App() {
     <BrowserRouter>
       <NavBar />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <HomePage />
-              <CourseList />
-            </>
-          }
-        />
+        
         <Route
           path="/homePage"
           element={
