@@ -191,6 +191,22 @@
   display: block;
 }
 
+.myLearn{
+  display: grid;
+  grid-template-columns: repeat(2, 2fr);
+  gap: 50px;
+  margin: 20px;
+
+}
+.myLearn img{
+  width: 100%;
+}
+
+
+
+
+
+
 @media (max-width: 768px) {
   .courseDetails {
     grid-template-columns: 1fr;
