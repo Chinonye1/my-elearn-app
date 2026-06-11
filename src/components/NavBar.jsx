@@ -1,3 +1,10 @@
+import { useState } from "react";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -11,13 +18,19 @@ import Fab from "@mui/material/Fab";
 
 export function NavBar({ cartCount, mode, toggleThemeMode }) {
   const navigate = useNavigate();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  function toggleMobileMenu() {
+    setMobileOpen((open) => !open);
+  }
+
   const isDark = mode === "dark";
   const navButtonStyles = {
-    color: "#2563eb",
+    color: isDark ? "#3b82f6" : "#2563eb",
     fontWeight: 800,
     "&:hover": {
-      bgcolor: "#dbeafe",
-      color: "#1d4ed8",
+      bgcolor: isDark ? "rgba(37, 99, 235, 0.16)" : "#dbeafe",
+      color: isDark ? "#60a5fa" : "#1d4ed8",
     },
   };
 
@@ -45,7 +58,6 @@ export function NavBar({ cartCount, mode, toggleThemeMode }) {
               sx={{ width: 44, height: 44, objectFit: "contain" }}
             />
             <Typography variant="h6" fontWeight={800}>
-             
               Elearn
             </Typography>
           </Stack>
@@ -64,7 +76,11 @@ export function NavBar({ cartCount, mode, toggleThemeMode }) {
             <Button component={RouterLink} to="/learning" sx={navButtonStyles}>
               My Learning
             </Button>
-            <Button component={RouterLink} to="/instructor" sx={navButtonStyles}>
+            <Button
+              component={RouterLink}
+              to="/instructor"
+              sx={navButtonStyles}
+            >
               Instructor
             </Button>
             <Button component={RouterLink} to="/cart" sx={navButtonStyles}>
@@ -73,22 +89,24 @@ export function NavBar({ cartCount, mode, toggleThemeMode }) {
           </Stack>
 
           <Box sx={{ flexGrow: { xs: 1, md: 0 } }} />
-          <Button
-            component={RouterLink}
-            to="/cart"
+
+          <IconButton
+            onClick={toggleMobileMenu}
             sx={{
-              ...navButtonStyles,
               display: { xs: "inline-flex", md: "none" },
+              color: isDark ? "#3b82f6" : "primary.main",
             }}
           >
-            Cart ({cartCount})
-          </Button>
+            <MenuIcon />
+          </IconButton>
+          
           <Fab
             variant="extended"
             size="medium"
             color="primary"
             onClick={() => navigate("/create")}
             sx={{
+              display: { xs: "none", md: "inline-flex" },
               bgcolor: "#2563eb",
               color: "white",
               px: 2.5,
@@ -103,6 +121,7 @@ export function NavBar({ cartCount, mode, toggleThemeMode }) {
             variant="outlined"
             onClick={toggleThemeMode}
             sx={{
+              display: { xs: "none", md: "inline-flex" },
               borderColor: isDark ? "#93c5fd" : "#2563eb",
               color: isDark ? "#bfdbfe" : "#2563eb",
               "&:hover": {
@@ -115,6 +134,67 @@ export function NavBar({ cartCount, mode, toggleThemeMode }) {
           </Button>
         </Toolbar>
       </Container>
+      <Drawer anchor="right" open={mobileOpen} onClose={toggleMobileMenu}>
+        <List sx={{ width: 260, pt: 2 }}>
+          <ListItemButton
+            component={RouterLink}
+            to="/"
+            onClick={toggleMobileMenu}
+          >
+            <ListItemText primary="Home" />
+          </ListItemButton>
+
+          <ListItemButton
+            component={RouterLink}
+            to="/courses"
+            onClick={toggleMobileMenu}
+          >
+            <ListItemText primary="Courses" />
+          </ListItemButton>
+
+          <ListItemButton
+            component={RouterLink}
+            to="/learning"
+            onClick={toggleMobileMenu}
+          >
+            <ListItemText primary="My Learning" />
+          </ListItemButton>
+
+          <ListItemButton
+            component={RouterLink}
+            to="/instructor"
+            onClick={toggleMobileMenu}
+          >
+            <ListItemText primary="Instructor" />
+          </ListItemButton>
+
+          <ListItemButton
+            component={RouterLink}
+            to="/cart"
+            onClick={toggleMobileMenu}
+          >
+            <ListItemText primary={`Cart (${cartCount})`} />
+          </ListItemButton>
+
+          <ListItemButton
+            onClick={() => {
+              toggleMobileMenu();
+              navigate("/create");
+            }}
+          >
+            <ListItemText primary="Create Course" />
+          </ListItemButton>
+
+          <ListItemButton
+            onClick={() => {
+              toggleThemeMode();
+              toggleMobileMenu();
+            }}
+          >
+            <ListItemText primary={isDark ? "Light Mode" : "Dark Mode"} />
+          </ListItemButton>
+        </List>
+      </Drawer>
     </AppBar>
   );
 }

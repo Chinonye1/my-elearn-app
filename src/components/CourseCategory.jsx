@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 
@@ -49,23 +49,33 @@ export function CourseCategory() {
   const categoryNames = Object.keys(groupedCourses).sort();
 
   return (
-    <Container maxWidth="lg" sx={{ py: 3 }}>
-      <Stack
-        direction="row"
-        flexWrap="wrap"
-        gap={2}
+    <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Box
         sx={{
-          "& > *": {
-            width: {
-              xs: "100%",
-              sm: "calc(50% - 8px)",
-              md: "calc(25% - 12px)",
-            },
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "1fr",
+            sm: "repeat(2, 1fr)",
+            md: "repeat(3, 1fr)",
+            lg: "repeat(4, 1fr)",
           },
+          gap: 3,
         }}
       >
         {categoryNames.map((categoryName) => (
-          <Card key={categoryName}>
+          <Card
+            key={categoryName}
+            sx={{
+              height: "100%",
+              transition:
+                "transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease",
+              "&:hover": {
+                transform: "translateY(-8px)",
+                borderColor: "primary.main",
+                boxShadow: 8,
+              },
+            }}
+          >
             <CardContent>
               <Typography color="text.secondary" gutterBottom>
                 Category
@@ -89,7 +99,7 @@ export function CourseCategory() {
             </CardActions>
           </Card>
         ))}
-      </Stack>
+      </Box>
     </Container>
   );
 }
