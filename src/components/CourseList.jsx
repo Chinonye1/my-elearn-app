@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Chip from "@mui/material/Chip";
+import Container from "@mui/material/Container";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 
 export function CourseList() {
@@ -9,47 +17,64 @@ export function CourseList() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    async function getData() {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_SERVER_URL}/courses`,
+        );
+
+        setCourses(response.data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
     getData();
   }, []);
 
-  async function getData() {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_URL}/courses`,
-      );
-
-      setCourses(response.data);
-
-      setLoading(false);
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  if (loading) return <h3>Loading courses...</h3>;
+  if (loading) return <Typography sx={{ p: 3 }}>Loading courses...</Typography>;
 
   return (
-    <>
-      <div className="courseListCard">
-        {courses.map((course) => {
-          return (
-            <div key={course.id}>
-              <img src={course.image} />
-              <h5>{course.category}</h5>
-              <p> {course.title} </p>
-              <h4>{course.tutorName}</h4>
-              <h5>{course.price}</h5>
-              <p>{course.duration}</p>
+    <Container maxWidth="lg" sx={{ py: 3 }}>
+      <Stack
+        direction="row"
+        flexWrap="wrap"
+        gap={3}
+        sx={{ "& > *": { width: { xs: "100%", sm: "calc(50% - 12px)", md: "calc(33.333% - 16px)" } } }}
+      >
+        {courses.slice(0, 6).map((course) => (
+          <Card key={course.id} sx={{ display: "flex", flexDirection: "column" }}>
+            <CardMedia
+              component="img"
+              height="170"
+              image={course.image}
+              alt={course.title}
+              sx={{ objectFit: "cover" }}
+            />
+            <CardContent sx={{ flexGrow: 1 }}>
+              <Chip label={course.category} size="small" color="primary" variant="outlined" />
+              <Typography variant="h6" sx={{ mt: 1.5 }}>
+                {course.title}
+              </Typography>
+              <Typography color="text.secondary">{course.tutorName}</Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                {course.duration} · {course.level || course.difficultyLevel}
+              </Typography>
+            </CardContent>
+            <CardActions sx={{ p: 2, pt: 0 }}>
               <Button
                 variant="outlined"
+                fullWidth
                 onClick={() => navigate(`/courses/details/${course.id}`)}
               >
                 View Details
               </Button>
-            </div>
-          );
-        })}
-      </div>
-    </>
+            </CardActions>
+          </Card>
+        ))}
+      </Stack>
+    </Container>
   );
 }

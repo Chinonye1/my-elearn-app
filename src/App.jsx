@@ -12,6 +12,8 @@ import { CreateCourse } from "./components/CreateCourse";
 import { EditCourse } from "./components/EditCourse";
 import { CourseDetails } from "./components/CourseDetails";
 import { CourseCategoryDetails } from "./components/CourseCategoryDetails";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
 
 function App() {
   return (
@@ -26,10 +28,16 @@ function App() {
             <>
               <HomePage />
               <Performance />
-              <h2>Featured courses</h2>
+              <Container maxWidth="lg" sx={{ pt: 2 }}>
+                <Typography variant="h4">Featured Courses</Typography>
+              </Container>
               <CourseList />
-              <h2>Explore Categories</h2>
-              <p>Find courses in your area of interest</p>
+              <Container maxWidth="lg" sx={{ pt: 4 }}>
+                <Typography variant="h4">Explore Categories</Typography>
+                <Typography color="text.secondary">
+                  Find courses in your area of interest.
+                </Typography>
+              </Container>
               <CourseCategory />
             </>
           }

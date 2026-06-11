@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
 import { useNavigate, useParams } from "react-router-dom";
 
 export function EditCourse() {
@@ -81,69 +85,84 @@ export function EditCourse() {
     }
   }
 
-  if (isLoading) return <h3>Loading...</h3>;
+  if (isLoading) return <Typography sx={{ p: 3 }}>Loading...</Typography>;
 
   return (
-    <>
-      <h1>Edit Course</h1>
-      <p>Update your course details below</p>
+    <Container maxWidth="md" sx={{ py: 5 }}>
+      <Stack spacing={1} sx={{ mb: 3 }}>
+        <Typography variant="h3">Edit Course</Typography>
+        <Typography color="text.secondary">
+          Update your course details below.
+        </Typography>
+      </Stack>
 
-      <Box component="form" className="create-form" onSubmit={handleFormSubmit}>
-        <Stack spacing={2}>
-          <TextField
-            label="Course Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-          <TextField
-            label="Instructor Name"
-            value={tutorName}
-            onChange={(e) => setTutorName(e.target.value)}
-            required
-            size="medium"
-          />
-          <TextField
-            label="Category"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-            required
-          />
-          <TextField
-            label="Price"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
-          <TextField
-            label="Difficulty Level"
-            value={difficultyLevel}
-            onChange={(e) => setDifficultyLevel(e.target.value)}
-          />
-          <TextField
-            label="Duration"
-            value={duration}
-            onChange={(e) => setDuration(e.target.value)}
-          />
-          <TextField
-            label="Image URL"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-          />
-          <TextField
-            label="Course Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            multiline
-            minRows={4}
-          />
-          <Button type="submit" variant="contained">
-            Save Changes
-          </Button>
-          <Button type="button" variant="outlined" color="error" onClick={deleteCourse}>
-            Delete Course
-          </Button>
-        </Stack>
-      </Box>
-    </>
+      <Card>
+        <CardContent>
+          <Box component="form" onSubmit={handleFormSubmit}>
+            <Stack spacing={2}>
+              <TextField
+                label="Course Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+              />
+              <TextField
+                label="Instructor Name"
+                value={tutorName}
+                onChange={(e) => setTutorName(e.target.value)}
+                required
+                size="medium"
+              />
+              <TextField
+                label="Category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                required
+              />
+              <TextField
+                label="Price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+              />
+              <TextField
+                label="Difficulty Level"
+                value={difficultyLevel}
+                onChange={(e) => setDifficultyLevel(e.target.value)}
+              />
+              <TextField
+                label="Duration"
+                value={duration}
+                onChange={(e) => setDuration(e.target.value)}
+              />
+              <TextField
+                label="Image URL"
+                value={image}
+                onChange={(e) => setImage(e.target.value)}
+              />
+              <TextField
+                label="Course Description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                multiline
+                minRows={4}
+              />
+              <Stack direction={{ xs: "column", sm: "row" }} spacing={2}>
+                <Button type="submit" variant="contained">
+                  Save Changes
+                </Button>
+                <Button
+                  type="button"
+                  variant="outlined"
+                  color="error"
+                  onClick={deleteCourse}
+                >
+                  Delete Course
+                </Button>
+              </Stack>
+            </Stack>
+          </Box>
+        </CardContent>
+      </Card>
+    </Container>
   );
 }

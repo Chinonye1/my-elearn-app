@@ -1,36 +1,69 @@
-import React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import Stack from "@mui/material/Stack";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import Elearnlogo from "../assets/logo.png";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
-
 
 export function NavBar() {
   const navigate = useNavigate();
 
-  function handleClick() {
-    navigate("/create");
-  }
-
   return (
-    <>
-      <nav>
-        <div className="NavbarSection">
-        
-            <img src={Elearnlogo} alt="logo" />
-          
-          
+    <AppBar
+      position="sticky"
+      color="inherit"
+      elevation={0}
+      sx={{ borderBottom: 1, borderColor: "divider" }}
+    >
+      <Container maxWidth="lg">
+        <Toolbar disableGutters sx={{ gap: 3, py: 1 }}>
+          <Stack
+            component={RouterLink}
+            to="/"
+            direction="row"
+            spacing={1.25}
+            alignItems="center"
+            sx={{ color: "text.primary", textDecoration: "none" }}
+          >
+            <Box
+              component="img"
+              src={Elearnlogo}
+              alt="Elearn logo"
+              sx={{ width: 44, height: 44, objectFit: "contain" }}
+            />
+            <Typography variant="h6" fontWeight={800}>
+              Elearn
+            </Typography>
+          </Stack>
 
-          <Link to="/">HomePage</Link>
-          <Link to="/courses">Courses</Link>
-          <Link to="/learning">My Learning</Link>
-          <Link to="/instructor">Instructor</Link>
-          <Button variant="outlined" onClick={handleClick}>Create Course</Button>
-         
-      
-      
-        </div>
-      </nav>
-    </>
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
+          >
+            <Button component={RouterLink} to="/" color="inherit">
+              Home
+            </Button>
+            <Button component={RouterLink} to="/courses" color="inherit">
+              Courses
+            </Button>
+            <Button component={RouterLink} to="/learning" color="inherit">
+              My Learning
+            </Button>
+            <Button component={RouterLink} to="/instructor" color="inherit">
+              Instructor
+            </Button>
+          </Stack>
+
+          <Box sx={{ flexGrow: { xs: 1, md: 0 } }} />
+          <Button variant="contained" onClick={() => navigate("/create")}>
+            Create Course
+          </Button>
+        </Toolbar>
+      </Container>
+    </AppBar>
   );
 }

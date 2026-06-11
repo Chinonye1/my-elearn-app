@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-
-import Button from "@mui/material/Button";
-
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Chip from "@mui/material/Chip";
+import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
-import { Grid } from "@mui/material";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
 
 export function Courses({
   showManagementActions = false,
@@ -28,10 +33,9 @@ export function Courses({
         );
 
         setCourses(response.data);
-
-        setLoading(false);
       } catch (err) {
         console.error(err);
+      } finally {
         setLoading(false);
       }
     }
@@ -58,7 +62,7 @@ export function Courses({
     }
   }
 
-  if (loading) return <h3>Loading courses...</h3>;
+  if (loading) return <Typography sx={{ p: 3 }}>Loading courses...</Typography>;
 
   const groupedCourses = courses.reduce((groups, course) => {
     const categoryName = course.category?.trim() || "Uncategorized";
@@ -89,66 +93,105 @@ export function Courses({
   });
 
   return (
-    <>
-      {title && <h1>{title}</h1>}
-      {description && <p>{description}</p>}
+    <Container maxWidth="lg" sx={{ py: 5 }}>
+      {(title || description) && (
+        <Stack spacing={1} sx={{ mb: 4 }}>
+          {title && <Typography variant="h3">{title}</Typography>}
+          {description && (
+            <Typography color="text.secondary">{description}</Typography>
+          )}
+        </Stack>
+      )}
 
-      <Box sx={{ width: 500, maxWidth: "80%" }}>
-        <TextField
-          fullWidth
-          label="Search courses"
-          id="fullWidth"
-          value={searchTerm}
-          onChange={(event) => setSearchTerm(event.target.value)}
-        />
-        <TextField
-          select
-          fullWidth
-          label="Difficulty"
-          value={difficultyFilter}
-          onChange={(event) => setDifficultyFilter(event.target.value)}
-          sx={{ marginTop: 2 }}
-        >
-          <MenuItem value="">All Levels</MenuItem>
-          <MenuItem value="Beginner">Beginner</MenuItem>
-          <MenuItem value="Intermediate">Intermediate</MenuItem>
-          <MenuItem value="Advanced">Advanced</MenuItem>
-        </TextField>
-        <Button variant="outlined">All Courses ({courses.length})</Button>
-      </Box>
-
-      <div className="categoryButtonList">
-        {categoryNames.map((categoryName) => (
-          <Grid key={categoryName}>
-            <Button
-              variant="contained"
-              onClick={() =>
-                navigate(
-                  `/courses/category/${encodeURIComponent(categoryName)}`,
-                )
-              }
+      <Card sx={{ mb: 3 }}>
+        <CardContent>
+          <Stack direction={{ xs: "column", md: "row" }} spacing={2}>
+            <TextField
+              fullWidth
+              label="Search courses"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+            />
+            <TextField
+              select
+              fullWidth
+              label="Difficulty"
+              value={difficultyFilter}
+              onChange={(event) => setDifficultyFilter(event.target.value)}
             >
-              {categoryName} ({groupedCourses[categoryName].length})
-            </Button>
-          </Grid>
+              <MenuItem value="">All Levels</MenuItem>
+              <MenuItem value="Beginner">Beginner</MenuItem>
+              <MenuItem value="Intermediate">Intermediate</MenuItem>
+              <MenuItem value="Advanced">Advanced</MenuItem>
+            </TextField>
+          </Stack>
+        </CardContent>
+      </Card>
+
+      <Stack direction="row" flexWrap="wrap" gap={1.5} sx={{ mb: 3 }}>
+        <Chip label={`All Courses (${courses.length})`} color="primary" />
+        {categoryNames.map((categoryName) => (
+          <Chip
+            key={categoryName}
+            label={`${categoryName} (${groupedCourses[categoryName].length})`}
+            variant="outlined"
+            onClick={() =>
+              navigate(`/courses/category/${encodeURIComponent(categoryName)}`)
+            }
+          />
         ))}
-      </div>
+      </Stack>
 
-      <p>Showing {filteredCourses.length} courses</p>
+      <Typography color="text.secondary" sx={{ mb: 2 }}>
+        Showing {filteredCourses.length} courses
+      </Typography>
 
-      <div className="courseCard">
-        {filteredCourses.length === 0 ? (
-          <h3>No courses found.</h3>
-        ) : (
-          filteredCourses.map((course) => {
-            return (
-              <div key={course.id}>
-                <img src={course.image} />
-                <h5>{course.category}</h5>
-                <p> {course.title} </p>
-                <h4>{course.tutorName}</h4>
-                <h5>{course.price}</h5>
-                <p>{course.duration}</p>
+      {filteredCourses.length === 0 ? (
+        <Card>
+          <CardContent>
+            <Typography variant="h6">No courses found.</Typography>
+          </CardContent>
+        </Card>
+      ) : (
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: {
+              xs: "1fr",
+              sm: "repeat(2, 1fr)",
+              md: "repeat(3, 1fr)",
+            },
+            gap: 3,
+          }}
+        >
+          {filteredCourses.map((course) => (
+            <Card key={course.id} sx={{ display: "flex", flexDirection: "column" }}>
+              <CardMedia
+                component="img"
+                height="180"
+                image={course.image}
+                alt={course.title}
+                sx={{ objectFit: "cover" }}
+              />
+              <CardContent sx={{ flexGrow: 1 }}>
+                <Chip
+                  label={course.category}
+                  size="small"
+                  color="primary"
+                  variant="outlined"
+                />
+                <Typography variant="h6" sx={{ mt: 1.5 }}>
+                  {course.title}
+                </Typography>
+                <Typography color="text.secondary">{course.tutorName}</Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                  {course.duration} · {course.level || course.difficultyLevel}
+                </Typography>
+                <Typography fontWeight={800} sx={{ mt: 1 }}>
+                  ₦{course.price}
+                </Typography>
+              </CardContent>
+              <CardActions sx={{ p: 2, pt: 0, gap: 1 }}>
                 <Button
                   variant="outlined"
                   onClick={() => navigate(`/courses/details/${course.id}`)}
@@ -172,11 +215,11 @@ export function Courses({
                     </Button>
                   </>
                 )}
-              </div>
-            );
-          })
-        )}
-      </div>
-    </>
+              </CardActions>
+            </Card>
+          ))}
+        </Box>
+      )}
+    </Container>
   );
 }
