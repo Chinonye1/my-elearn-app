@@ -90,6 +90,7 @@ function App({ mode, toggleThemeMode }) {
                 addToCart={addToCart}
                 isCourseLiked={isCourseLiked}
                 toggleLike={toggleLike}
+                moving
               />
               <Container maxWidth="lg" sx={{ pt: 4 }}>
                 <Typography variant="h4">Explore Categories</Typography>
