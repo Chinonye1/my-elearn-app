@@ -14,7 +14,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useNavigate, useParams } from "react-router-dom";
 
-export function CourseDetails() {
+export function CourseDetails({ addToCart, isCourseLiked, toggleLike }) {
   const [course, setCourse] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -127,16 +127,24 @@ export function CourseDetails() {
                 <Typography>
                   Difficulty: {course.difficultyLevel || course.level}
                 </Typography>
-                <Typography fontWeight={800}>Price: ${course.price}</Typography>
+                <Typography fontWeight={800}>Price: €{course.price}</Typography>
               </Stack>
 
-              <Button
-                variant="outlined"
-                onClick={() => navigate(-1)}
-                sx={{ width: "fit-content" }}
-              >
-                Back
-              </Button>
+              <Stack direction="row" spacing={1} flexWrap="wrap">
+                <Button
+                  variant={isCourseLiked(course.id) ? "contained" : "outlined"}
+                  color="error"
+                  onClick={() => toggleLike(course.id)}
+                >
+                  {isCourseLiked(course.id) ? "♥ Liked" : "♡ Like"}
+                </Button>
+                <Button variant="contained" onClick={() => addToCart(course)}>
+                  Add to Cart
+                </Button>
+                <Button variant="outlined" onClick={() => navigate(-1)}>
+                  Back
+                </Button>
+              </Stack>
             </Stack>
           </CardContent>
         </Box>

@@ -19,7 +19,7 @@ const learningStats = [
   { label: "Day Streak", value: "7" },
 ];
 
-export function Learning() {
+export function Learning({ isCourseLiked, toggleLike }) {
   const navigate = useNavigate();
   const [myCourses, setMyCourses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -92,7 +92,23 @@ export function Learning() {
                   {course.duration} · {course.level || course.difficultyLevel}
                 </Typography>
               </CardContent>
-              <CardActions sx={{ p: 2, alignItems: "flex-end" }}>
+              <CardActions
+                sx={{
+                  p: 2,
+                  gap: 1,
+                  alignItems: { xs: "stretch", md: "flex-end" },
+                  flexDirection: { xs: "row", md: "column" },
+                  justifyContent: "center",
+                  minWidth: { md: 150 },
+                }}
+              >
+                <Button
+                  variant={isCourseLiked(course.id) ? "contained" : "outlined"}
+                  color="error"
+                  onClick={() => toggleLike(course.id)}
+                >
+                  {isCourseLiked(course.id) ? "♥ Liked" : "♡ Like"}
+                </Button>
                 <Button
                   variant="outlined"
                   onClick={() => navigate(`/courses/details/${course.id}`)}

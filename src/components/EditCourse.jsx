@@ -120,7 +120,7 @@ export function EditCourse() {
                 required
               />
               <TextField
-                label="Price"
+                label="Price (€)"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />

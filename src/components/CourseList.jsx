@@ -11,7 +11,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 
-export function CourseList() {
+export function CourseList({ addToCart, isCourseLiked, toggleLike }) {
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -79,13 +79,28 @@ export function CourseList() {
                 {course.duration} · {course.level || course.difficultyLevel}
               </Typography>
             </CardContent>
-            <CardActions sx={{ p: 2, pt: 0 }}>
+            <CardActions sx={{ p: 2, pt: 0, gap: 1 }}>
+              <Button
+                variant={isCourseLiked(course.id) ? "contained" : "outlined"}
+                color="error"
+                fullWidth
+                onClick={() => toggleLike(course.id)}
+              >
+                {isCourseLiked(course.id) ? "♥ Liked" : "♡ Like"}
+              </Button>
               <Button
                 variant="outlined"
                 fullWidth
                 onClick={() => navigate(`/courses/details/${course.id}`)}
               >
                 View Details
+              </Button>
+              <Button
+                variant="contained"
+                fullWidth
+                onClick={() => addToCart(course)}
+              >
+                Add to Cart
               </Button>
             </CardActions>
           </Card>

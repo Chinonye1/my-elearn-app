@@ -12,7 +12,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useNavigate, useParams } from "react-router-dom";
 
-export function CourseCategoryDetails() {
+export function CourseCategoryDetails({ addToCart }) {
   const navigate = useNavigate();
   const { categoryName } = useParams();
   const selectedCategory = decodeURIComponent(categoryName);
@@ -118,12 +118,15 @@ export function CourseCategoryDetails() {
                   {course.description}
                 </Typography>
               </CardContent>
-              <CardActions sx={{ p: 2, pt: 0 }}>
+              <CardActions sx={{ p: 2, pt: 0, gap: 1 }}>
                 <Button
                   variant="outlined"
                   onClick={() => navigate(`/courses/details/${course.id}`)}
                 >
                   View Details
+                </Button>
+                <Button variant="contained" onClick={() => addToCart(course)}>
+                  Add to Cart
                 </Button>
               </CardActions>
             </Card>

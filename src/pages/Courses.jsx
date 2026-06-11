@@ -18,6 +18,9 @@ export function Courses({
   showManagementActions = false,
   title = "All Courses",
   description = "Explore our comprehensive library of courses",
+  addToCart,
+  isCourseLiked,
+  toggleLike,
 }) {
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
@@ -174,12 +177,31 @@ export function Courses({
                 sx={{ objectFit: "cover" }}
               />
               <CardContent sx={{ flexGrow: 1 }}>
-                <Chip
-                  label={course.category}
-                  size="small"
-                  color="primary"
-                  variant="outlined"
-                />
+                <Stack
+                  direction="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  spacing={1}
+                >
+                  <Chip
+                    label={course.category}
+                    size="small"
+                    color="primary"
+                    variant="outlined"
+                  />
+                  {isCourseLiked && toggleLike && (
+                    <Button
+                      size="small"
+                      variant={
+                        isCourseLiked(course.id) ? "contained" : "outlined"
+                      }
+                      color="error"
+                      onClick={() => toggleLike(course.id)}
+                    >
+                      {isCourseLiked(course.id) ? "♥ Liked" : "♡ Like"}
+                    </Button>
+                  )}
+                </Stack>
                 <Typography variant="h6" sx={{ mt: 1.5 }}>
                   {course.title}
                 </Typography>
@@ -188,7 +210,7 @@ export function Courses({
                   {course.duration} · {course.level || course.difficultyLevel}
                 </Typography>
                 <Typography fontWeight={800} sx={{ mt: 1 }}>
-                  ₦{course.price}
+                  €{course.price}
                 </Typography>
               </CardContent>
               <CardActions sx={{ p: 2, pt: 0, gap: 1 }}>
@@ -198,6 +220,11 @@ export function Courses({
                 >
                   View Details
                 </Button>
+                {addToCart && (
+                  <Button variant="contained" onClick={() => addToCart(course)}>
+                    Add to Cart
+                  </Button>
+                )}
                 {showManagementActions && (
                   <>
                     <Button
