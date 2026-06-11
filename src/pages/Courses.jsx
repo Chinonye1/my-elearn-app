@@ -168,7 +168,10 @@ export function Courses({
           }}
         >
           {filteredCourses.map((course) => (
-            <Card key={course.id} sx={{ display: "flex", flexDirection: "column" }}>
+            <Card
+              key={course.id}
+              sx={{ display: "flex", flexDirection: "column" }}
+            >
               <CardMedia
                 component="img"
                 height="180"
@@ -205,8 +208,14 @@ export function Courses({
                 <Typography variant="h6" sx={{ mt: 1.5 }}>
                   {course.title}
                 </Typography>
-                <Typography color="text.secondary">{course.tutorName}</Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                <Typography color="text.secondary">
+                  {course.tutorName}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mt: 1 }}
+                >
                   {course.duration} · {course.level || course.difficultyLevel}
                 </Typography>
                 <Typography fontWeight={800} sx={{ mt: 1 }}>

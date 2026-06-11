@@ -28,7 +28,7 @@ export function EditCourse() {
     async function getCourse() {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_SERVER_URL}/courses/${courseId}`
+          `${import.meta.env.VITE_SERVER_URL}/courses/${courseId}`,
         );
 
         setTitle(response.data.title || "");
@@ -53,16 +53,19 @@ export function EditCourse() {
     e.preventDefault();
 
     try {
-      await axios.put(`${import.meta.env.VITE_SERVER_URL}/courses/${courseId}`, {
-        title,
-        tutorName,
-        category,
-        price,
-        difficultyLevel,
-        description,
-        duration,
-        image,
-      });
+      await axios.put(
+        `${import.meta.env.VITE_SERVER_URL}/courses/${courseId}`,
+        {
+          title,
+          tutorName,
+          category,
+          price,
+          difficultyLevel,
+          description,
+          duration,
+          image,
+        },
+      );
 
       navigate("/instructor");
     } catch (err) {
@@ -72,13 +75,15 @@ export function EditCourse() {
 
   async function deleteCourse() {
     const shouldDelete = window.confirm(
-      `Are you sure you want to delete "${title}"?`
+      `Are you sure you want to delete "${title}"?`,
     );
 
     if (!shouldDelete) return;
 
     try {
-      await axios.delete(`${import.meta.env.VITE_SERVER_URL}/courses/${courseId}`);
+      await axios.delete(
+        `${import.meta.env.VITE_SERVER_URL}/courses/${courseId}`,
+      );
       navigate("/instructor");
     } catch (error) {
       console.error(error);

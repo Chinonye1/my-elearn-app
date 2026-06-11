@@ -83,12 +83,23 @@ export function Learning({ isCourseLiked, toggleLike }) {
                 }}
               />
               <CardContent sx={{ flex: 1 }}>
-                <Chip label={course.category} size="small" color="primary" variant="outlined" />
+                <Chip
+                  label={course.category}
+                  size="small"
+                  color="primary"
+                  variant="outlined"
+                />
                 <Typography variant="h6" sx={{ mt: 1.5 }}>
                   {course.title}
                 </Typography>
-                <Typography color="text.secondary">{course.tutorName}</Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                <Typography color="text.secondary">
+                  {course.tutorName}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mt: 1 }}
+                >
                   {course.duration} · {course.level || course.difficultyLevel}
                 </Typography>
               </CardContent>

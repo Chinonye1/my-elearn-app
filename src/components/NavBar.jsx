@@ -99,7 +99,7 @@ export function NavBar({ cartCount, mode, toggleThemeMode }) {
           >
             <MenuIcon />
           </IconButton>
-          
+
           <Fab
             variant="extended"
             size="medium"

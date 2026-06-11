@@ -12,7 +12,12 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 
-export function CourseList({ addToCart, isCourseLiked, toggleLike, moving = false }) {
+export function CourseList({
+  addToCart,
+  isCourseLiked,
+  toggleLike,
+  moving = false,
+}) {
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
