@@ -17,7 +17,7 @@ import { Cart } from "./components/Cart";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
-function App() {
+function App({ mode, toggleThemeMode }) {
   const [cartItems, setCartItems] = useState(() => {
     const savedCart = localStorage.getItem("cartItems");
     return savedCart ? JSON.parse(savedCart) : [];
@@ -67,11 +67,14 @@ function App() {
     return likedCourseIds.includes(courseId);
   }
 
-
   return (
     <div>
     <BrowserRouter>
-      <NavBar cartCount={cartItems.length} />
+      <NavBar
+        cartCount={cartItems.length}
+        mode={mode}
+        toggleThemeMode={toggleThemeMode}
+      />
       <Routes>
         
         <Route

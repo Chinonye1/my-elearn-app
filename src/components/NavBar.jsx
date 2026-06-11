@@ -9,8 +9,9 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import Elearnlogo from "../assets/logo.png";
 import Fab from "@mui/material/Fab";
 
-export function NavBar({ cartCount }) {
+export function NavBar({ cartCount, mode, toggleThemeMode }) {
   const navigate = useNavigate();
+  const isDark = mode === "dark";
   const navButtonStyles = {
     color: "#2563eb",
     fontWeight: 800,
@@ -98,6 +99,20 @@ export function NavBar({ cartCount }) {
           >
             Create Course
           </Fab>
+          <Button
+            variant="outlined"
+            onClick={toggleThemeMode}
+            sx={{
+              borderColor: isDark ? "#93c5fd" : "#2563eb",
+              color: isDark ? "#bfdbfe" : "#2563eb",
+              "&:hover": {
+                borderColor: isDark ? "#bfdbfe" : "#1d4ed8",
+                bgcolor: isDark ? "rgba(147, 197, 253, 0.12)" : "#dbeafe",
+              },
+            }}
+          >
+            {isDark ? "Light Mode" : "Dark Mode"}
+          </Button>
         </Toolbar>
       </Container>
     </AppBar>
