@@ -35,7 +35,7 @@ function App() {
               <Container maxWidth="lg" sx={{ pt: 4 }}>
                 <Typography variant="h4">Explore Categories</Typography>
                 <Typography color="text.secondary">
-                  Find courses in your area of interest.
+                  Find courses in your area of interest....Testing
                 </Typography>
               </Container>
               <CourseCategory />
