@@ -111,9 +111,15 @@ export function CourseDetails() {
           />
           <CardContent sx={{ p: { xs: 3, md: 5 } }}>
             <Stack spacing={2}>
-              <Chip label={course.category} color="primary" sx={{ width: "fit-content" }} />
+              <Chip
+                label={course.category}
+                color="primary"
+                sx={{ width: "fit-content" }}
+              />
               <Typography variant="h3">{course.title}</Typography>
-              <Typography color="text.secondary">{course.description}</Typography>
+              <Typography color="text.secondary">
+                {course.description}
+              </Typography>
 
               <Stack spacing={1.25}>
                 <Typography>Instructor: {course.tutorName}</Typography>
@@ -121,7 +127,7 @@ export function CourseDetails() {
                 <Typography>
                   Difficulty: {course.difficultyLevel || course.level}
                 </Typography>
-                <Typography fontWeight={800}>Price: ₦{course.price}</Typography>
+                <Typography fontWeight={800}>Price: ${course.price}</Typography>
               </Stack>
 
               <Button
@@ -162,11 +168,16 @@ export function CourseDetails() {
                 <CardContent>
                   <Stack spacing={2}>
                     <Stack direction="row" spacing={1.5} alignItems="center">
-                      <Avatar src={review.studentImage} alt={review.studentName}>
+                      <Avatar
+                        src={review.studentImage}
+                        alt={review.studentName}
+                      >
                         {review.studentName?.[0]}
                       </Avatar>
                       <Box>
-                        <Typography fontWeight={800}>{review.studentName}</Typography>
+                        <Typography fontWeight={800}>
+                          {review.studentName}
+                        </Typography>
                         <Typography variant="body2" color="text.secondary">
                           {review.date}
                         </Typography>
@@ -175,7 +186,9 @@ export function CourseDetails() {
                     <Typography color="#b7791f">
                       {"★".repeat(review.rating)}
                     </Typography>
-                    <Typography color="text.secondary">{review.comment}</Typography>
+                    <Typography color="text.secondary">
+                      {review.comment}
+                    </Typography>
                   </Stack>
                 </CardContent>
               </Card>

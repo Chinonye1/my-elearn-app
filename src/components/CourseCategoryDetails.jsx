@@ -46,7 +46,11 @@ export function CourseCategoryDetails() {
   }, [selectedCategory]);
 
   if (loading) {
-    return <Typography sx={{ p: 3 }}>Loading {selectedCategory} courses...</Typography>;
+    return (
+      <Typography sx={{ p: 3 }}>
+        Loading {selectedCategory} courses...
+      </Typography>
+    );
   }
 
   return (
@@ -61,7 +65,9 @@ export function CourseCategoryDetails() {
       {courses.length === 0 ? (
         <Card>
           <CardContent>
-            <Typography variant="h6">No courses found in this category.</Typography>
+            <Typography variant="h6">
+              No courses found in this category.
+            </Typography>
           </CardContent>
         </Card>
       ) : (
@@ -77,7 +83,10 @@ export function CourseCategoryDetails() {
           }}
         >
           {courses.map((course) => (
-            <Card key={course.id} sx={{ display: "flex", flexDirection: "column" }}>
+            <Card
+              key={course.id}
+              sx={{ display: "flex", flexDirection: "column" }}
+            >
               <CardMedia
                 component="img"
                 height="180"
@@ -86,12 +95,23 @@ export function CourseCategoryDetails() {
                 sx={{ objectFit: "cover" }}
               />
               <CardContent sx={{ flexGrow: 1 }}>
-                <Chip label={course.category} size="small" color="primary" variant="outlined" />
+                <Chip
+                  label={course.category}
+                  size="small"
+                  color="primary"
+                  variant="outlined"
+                />
                 <Typography variant="h6" sx={{ mt: 1.5 }}>
                   {course.title}
                 </Typography>
-                <Typography color="text.secondary">{course.tutorName}</Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                <Typography color="text.secondary">
+                  {course.tutorName}
+                </Typography>
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ mt: 1 }}
+                >
                   {course.duration} · {course.level || course.difficultyLevel}
                 </Typography>
                 <Typography color="text.secondary" sx={{ mt: 1 }}>

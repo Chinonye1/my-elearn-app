@@ -33,12 +33,7 @@ export function CreateCourse() {
     "Web Development",
   ];
 
-  const difficultyOptions = [
-    "Beginner",
-    "Intermediate",
-    "Advanced",
-  ];
-
+  const difficultyOptions = ["Beginner", "Intermediate", "Advanced"];
 
   async function postData(event) {
     event.preventDefault();
@@ -152,7 +147,11 @@ export function CreateCourse() {
                 }
                 label="I agree to the Terms and Conditions"
               />
-              <Button type="submit" variant="contained" sx={{ width: "fit-content" }}>
+              <Button
+                type="submit"
+                variant="contained"
+                sx={{ width: "fit-content" }}
+              >
                 Submit
               </Button>
             </Stack>

@@ -32,7 +32,8 @@ export function CourseCategory() {
     getData();
   }, []);
 
-  if (loading) return <Typography sx={{ p: 3 }}>Loading categories...</Typography>;
+  if (loading)
+    return <Typography sx={{ p: 3 }}>Loading categories...</Typography>;
 
   const groupedCourses = courses.reduce((groups, course) => {
     const categoryName = course.category?.trim() || "Uncategorized";
@@ -53,7 +54,15 @@ export function CourseCategory() {
         direction="row"
         flexWrap="wrap"
         gap={2}
-        sx={{ "& > *": { width: { xs: "100%", sm: "calc(50% - 8px)", md: "calc(25% - 12px)" } } }}
+        sx={{
+          "& > *": {
+            width: {
+              xs: "100%",
+              sm: "calc(50% - 8px)",
+              md: "calc(25% - 12px)",
+            },
+          },
+        }}
       >
         {categoryNames.map((categoryName) => (
           <Card key={categoryName}>
@@ -70,7 +79,9 @@ export function CourseCategory() {
               <Button
                 variant="outlined"
                 onClick={() =>
-                  navigate(`/courses/category/${encodeURIComponent(categoryName)}`)
+                  navigate(
+                    `/courses/category/${encodeURIComponent(categoryName)}`,
+                  )
                 }
               >
                 Explore

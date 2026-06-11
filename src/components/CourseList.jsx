@@ -42,10 +42,21 @@ export function CourseList() {
         direction="row"
         flexWrap="wrap"
         gap={3}
-        sx={{ "& > *": { width: { xs: "100%", sm: "calc(50% - 12px)", md: "calc(33.333% - 16px)" } } }}
+        sx={{
+          "& > *": {
+            width: {
+              xs: "100%",
+              sm: "calc(50% - 12px)",
+              md: "calc(33.333% - 16px)",
+            },
+          },
+        }}
       >
         {courses.slice(0, 6).map((course) => (
-          <Card key={course.id} sx={{ display: "flex", flexDirection: "column" }}>
+          <Card
+            key={course.id}
+            sx={{ display: "flex", flexDirection: "column" }}
+          >
             <CardMedia
               component="img"
               height="170"
@@ -54,7 +65,12 @@ export function CourseList() {
               sx={{ objectFit: "cover" }}
             />
             <CardContent sx={{ flexGrow: 1 }}>
-              <Chip label={course.category} size="small" color="primary" variant="outlined" />
+              <Chip
+                label={course.category}
+                size="small"
+                color="primary"
+                variant="outlined"
+              />
               <Typography variant="h6" sx={{ mt: 1.5 }}>
                 {course.title}
               </Typography>
