@@ -135,19 +135,54 @@ export function Courses({
         </CardContent>
       </Card>
 
-      <Stack direction="row" flexWrap="wrap" gap={1.5} sx={{ mb: 3 }}>
-        <Chip label={`All Courses (${courses.length})`} color="primary" />
+      <Box
+        sx={{
+          mb: 3,
+          display: "grid",
+          gridTemplateColumns: {
+            xs: "repeat(2, minmax(0, 1fr))",
+            sm: "repeat(auto-fit, minmax(150px, 1fr))",
+          },
+          gap: 1.25,
+        }}
+      >
+        <Button
+          variant="contained"
+          size="small"
+          sx={{
+            minHeight: 40,
+            borderRadius: 999,
+            px: 2,
+            textTransform: "none",
+            lineHeight: 1.2,
+            whiteSpace: "normal",
+          }}
+        >
+          All Courses ({courses.length})
+        </Button>
         {categoryNames.map((categoryName) => (
-          <Chip
+          <Button
             key={categoryName}
-            label={`${categoryName} (${groupedCourses[categoryName].length})`}
             variant="outlined"
+            size="small"
+            sx={{
+              maxWidth: "100%",
+              minHeight: 40,
+              borderRadius: 999,
+              px: 2,
+              lineHeight: 1.2,
+              textTransform: "none",
+              whiteSpace: "normal",
+              overflowWrap: "anywhere",
+            }}
             onClick={() =>
               navigate(`/courses/category/${encodeURIComponent(categoryName)}`)
             }
-          />
+          >
+            {categoryName} ({groupedCourses[categoryName].length})
+          </Button>
         ))}
-      </Stack>
+      </Box>
 
       <Typography color="text.secondary" sx={{ mb: 2 }}>
         Showing {filteredCourses.length} courses
