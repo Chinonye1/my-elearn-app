@@ -30,6 +30,7 @@ export function CourseDetails({ addToCart, isCourseLiked, toggleLike }) {
   useEffect(() => {
     async function getCourse() {
       try {
+        // Load the selected course first so its category can pull matching reviews.
         const courseResponse = await axios.get(
           `${import.meta.env.VITE_SERVER_URL}/courses/${courseId}`,
         );
@@ -61,6 +62,7 @@ export function CourseDetails({ addToCart, isCourseLiked, toggleLike }) {
 
     if (!course) return;
 
+    // Store the review with both course and category context for easier filtering.
     const newReview = {
       courseId: Number(courseId),
       category: course.category,
@@ -78,6 +80,7 @@ export function CourseDetails({ addToCart, isCourseLiked, toggleLike }) {
         newReview,
       );
 
+      // Put the newest review first so the learner sees their feedback immediately.
       setReviews((currentReviews) => [response.data, ...currentReviews]);
       setStudentName("");
       setStudentImage("");

@@ -31,6 +31,7 @@ export function Courses({
   useEffect(() => {
     async function getData() {
       try {
+        // Load the catalog from the API configured in .env.local.
         const response = await axios.get(
           `${import.meta.env.VITE_SERVER_URL}/courses`,
         );
@@ -47,6 +48,7 @@ export function Courses({
   }, []);
 
   async function deleteCourse(courseId, courseTitle) {
+    // Confirm destructive actions before removing a course from the backend.
     const shouldDelete = window.confirm(
       `Are you sure you want to delete "${courseTitle}"?`,
     );
@@ -68,6 +70,7 @@ export function Courses({
   if (loading) return <Typography sx={{ p: 3 }}>Loading courses...</Typography>;
 
   const groupedCourses = courses.reduce((groups, course) => {
+    // Group courses for the category chips shown above the course grid.
     const categoryName = course.category?.trim() || "Uncategorized";
 
     if (!groups[categoryName]) {
@@ -84,6 +87,7 @@ export function Courses({
     const searchText = searchTerm.toLowerCase();
     const courseDifficulty = course.difficultyLevel || course.level || "";
 
+    // Search covers the fields learners are most likely to remember.
     const matchesSearch =
       course.title.toLowerCase().includes(searchText) ||
       course.category.toLowerCase().includes(searchText) ||

@@ -39,6 +39,7 @@ export function CreateCourse() {
     event.preventDefault();
 
     try {
+      // Send the form values to the backend as a new course record.
       const response = await axios.post(
         `${import.meta.env.VITE_SERVER_URL}/courses`,
         {

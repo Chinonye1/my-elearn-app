@@ -25,6 +25,7 @@ export function CourseList({
   useEffect(() => {
     async function getData() {
       try {
+        // Fetch once for the featured course section on the home page.
         const response = await axios.get(
           `${import.meta.env.VITE_SERVER_URL}/courses`,
         );
@@ -45,6 +46,7 @@ export function CourseList({
   const featuredCourses = courses.slice(0, 6);
 
   function renderCourseCard(course) {
+    // Shared card markup keeps the moving and static layouts consistent.
     return (
       <Card
         key={course.id}
@@ -134,6 +136,7 @@ export function CourseList({
               },
             }}
           >
+            {/* Duplicate the list so the sliding row can loop smoothly. */}
             {[...featuredCourses, ...featuredCourses].map((course, index) => (
               <Box
                 key={`${course.id}-${index}`}

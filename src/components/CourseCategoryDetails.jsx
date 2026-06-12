@@ -15,6 +15,7 @@ import { useNavigate, useParams } from "react-router-dom";
 export function CourseCategoryDetails({ addToCart }) {
   const navigate = useNavigate();
   const { categoryName } = useParams();
+  // Route params are encoded in the URL, so decode before matching course data.
   const selectedCategory = decodeURIComponent(categoryName);
 
   const [courses, setCourses] = useState([]);
@@ -27,6 +28,7 @@ export function CourseCategoryDetails({ addToCart }) {
           `${import.meta.env.VITE_SERVER_URL}/courses`,
         );
 
+        // Match category names case-insensitively to avoid missing close matches.
         const matchingCourses = response.data.filter((course) => {
           return (
             course.category?.trim().toLowerCase() ===

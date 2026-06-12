@@ -3,6 +3,7 @@ import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
 import App from "./App.jsx";
 
 export function ThemeApp() {
+  // Start with the learner's saved theme, then fall back to light mode.
   const [mode, setMode] = useState(() => {
     return localStorage.getItem("themeMode") || "light";
   });
@@ -10,6 +11,7 @@ export function ThemeApp() {
   const theme = useMemo(() => {
     const isDark = mode === "dark";
 
+    // Rebuild the Material UI theme only when the mode changes.
     return createTheme({
       palette: {
         mode,

@@ -27,6 +27,7 @@ export function EditCourse() {
   useEffect(() => {
     async function getCourse() {
       try {
+        // Pre-fill the form with the current course details before editing.
         const response = await axios.get(
           `${import.meta.env.VITE_SERVER_URL}/courses/${courseId}`,
         );
@@ -53,6 +54,7 @@ export function EditCourse() {
     e.preventDefault();
 
     try {
+      // Save the updated fields, then return to the instructor dashboard.
       await axios.put(
         `${import.meta.env.VITE_SERVER_URL}/courses/${courseId}`,
         {
@@ -74,6 +76,7 @@ export function EditCourse() {
   }
 
   async function deleteCourse() {
+    // Ask first because this permanently removes the course from the API data.
     const shouldDelete = window.confirm(
       `Are you sure you want to delete "${title}"?`,
     );

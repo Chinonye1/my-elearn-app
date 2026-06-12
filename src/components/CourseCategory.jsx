@@ -36,6 +36,7 @@ export function CourseCategory() {
     return <Typography sx={{ p: 3 }}>Loading categories...</Typography>;
 
   const groupedCourses = courses.reduce((groups, course) => {
+    // Build category cards directly from the course data.
     const categoryName = course.category?.trim() || "Uncategorized";
 
     if (!groups[categoryName]) {

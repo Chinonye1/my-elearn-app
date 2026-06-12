@@ -10,10 +10,12 @@ import Typography from "@mui/material/Typography";
 import { Link as RouterLink } from "react-router-dom";
 
 function getCoursePrice(course) {
+  // Prices may arrive as strings with symbols, so normalize before adding totals.
   return Number(String(course.price || 0).replace(/[^\d.]/g, ""));
 }
 
 export function Cart({ cartItems, removeFromCart }) {
+  // Derive the total from the current cart instead of storing duplicate state.
   const totalPrice = cartItems.reduce((sum, course) => {
     return sum + getCoursePrice(course);
   }, 0);

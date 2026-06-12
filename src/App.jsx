@@ -18,6 +18,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 
 function App({ mode, toggleThemeMode }) {
+  // Restore saved cart and likes so the learner keeps their choices after refresh.
   const [cartItems, setCartItems] = useState(() => {
     const savedCart = localStorage.getItem("cartItems");
     return savedCart ? JSON.parse(savedCart) : [];
@@ -39,6 +40,7 @@ function App({ mode, toggleThemeMode }) {
     setCartItems((currentItems) => {
       const alreadyInCart = currentItems.some((item) => item.id === course.id);
 
+      // Keep one copy of each course in the cart.
       if (alreadyInCart) {
         return currentItems;
       }
@@ -55,6 +57,7 @@ function App({ mode, toggleThemeMode }) {
 
   function toggleLike(courseId) {
     setLikedCourseIds((currentIds) => {
+      // A liked course id acts like a simple on/off toggle.
       if (currentIds.includes(courseId)) {
         return currentIds.filter((id) => id !== courseId);
       }

@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 
 const learningStats = [
+  // Placeholder stats for the learner dashboard summary.
   { label: "Hours Learned", value: "40" },
   { label: "Courses Enrolled", value: "3" },
   { label: "Certificates", value: "3" },
@@ -27,6 +28,7 @@ export function Learning({ isCourseLiked, toggleLike }) {
   useEffect(() => {
     async function getData() {
       try {
+        // Reuse course data to show a simple "continue learning" list.
         const response = await axios.get(
           `${import.meta.env.VITE_SERVER_URL}/courses`,
         );
